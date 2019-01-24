@@ -10,12 +10,7 @@ class App extends Component {
   render() {
     return (
       <div> 
-
-        <Nav />
-        <Hero />
         <Section />
-        <SectionTwo />
-        <Footer />
 
       </div>
     );
