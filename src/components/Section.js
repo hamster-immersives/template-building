@@ -12,9 +12,38 @@ export default class Section extends Component {
       summary: "Est sed tellus nunc hendrerit adipiscing nulla nunc id elit etiam tempus lectus vel posuere congue nunc quam varius lectus.",
       id: uuidv4()
     }
-   ]
+   ],
+   name: "",
+   title: "",
+   summary: ""
   }
 
+  handleInput = (event) => {
+    console.log(`name: ${event.target.name} value: ${event.target.value}`)
+    this.setState({
+      [event.target.name]: event.target.value
+    })
+  }
+
+  handleSubmit = (event) => {
+    event.preventDefault();
+    
+    let newUser = {
+      name: this.state.name,
+      title: this.state.title,
+      summary: this.state.summary,
+      id: uuidv4()
+    }
+
+    let currentUserList = Object.assign([], this.state.userInfo);
+    
+    currentUserList.push(newUser);
+
+    this.setState({
+      userInfo: currentUserList
+    })
+
+  }
 
   render() {
 
@@ -25,10 +54,22 @@ export default class Section extends Component {
         <div className="wrapper row3">
         <main className="hoc container clear"> 
           <div className="sectiontitle">
-          <form>
-            <input />
-            <input />
-            <input />
+          <form onSubmit={this.handleSubmit}>
+            <input 
+              type="text" 
+              name="name" 
+              onChange={this.handleInput}
+              />
+            <input 
+              type="text" 
+              name="title"
+              onChange={this.handleInput}
+              />
+            <input 
+              type="text" 
+              name="summary"
+              onChange={this.handleInput}
+              />
             <button>Submit</button>
         </form>
           </div>
@@ -40,6 +81,7 @@ export default class Section extends Component {
                     name={user.name}
                     title={user.title}
                     summary={user.summary}
+                    key={user.id}
                   />
                 )
               })
